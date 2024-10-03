@@ -11,6 +11,9 @@ label_mapping = {
     "LABEL_1": "Positive"
 }
 
+# Load the sentiment model once when the application starts
+model = pipeline("text-classification", model="srimeenakshiks/aspect-based-sentiment-analyzer-using-bert")
+
 # Serve the HTML file for the root route
 @app.route('/')
 def home():
@@ -25,9 +28,6 @@ def analyze_sentiment():
 
     # Log received data
     print(f"Received text: {text}, aspect: {aspect}")
-
-    # Load the sentiment model
-    model = pipeline("text-classification", model="srimeenakshiks/aspect-based-sentiment-analyzer-using-bert")
 
     # Perform sentiment analysis
     results = model(f"{aspect}: {text}")
